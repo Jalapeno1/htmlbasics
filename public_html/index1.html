@@ -6,16 +6,99 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>My first HTML document</title>
+        <title>My Page, MY PAGE!</title>
         <link rel="stylesheet" type="text/css"
               href="newcss.css"/>
     </head>
-    <body>
+    <body onload="checkCookie()">
+        
         <h1>Heading</h1>
-        <p id="par1"> Here I should add some text </p>
-        <p>teseting&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;testsetien</p>
+        <p id="par1">This Is The First Page</p>
+        <p>This is Homepage</p>
         <a href="nextPage.html">Next Page</a> 
-        <p>
+        
+        <p>_____________________________________________</p>
+        
+        <p>Please input a number between 1 and 10:</p>
+        <input id="numb" type="text">
+        <button type="button" onclick="myFunction()">Submit</button>
+        <p id="demo"></p>
+        
+        <p>_____________________________________________</p>
+        
+        <!-- 
+        <p>Cookie Information:</p>
+        <p id="cook"></p>
+        -->
+        <script>
+            function myFunction() {
+                var x, text;
+
+                //Get the value of input field with id="numb"
+
+                x = document.getElementById("numb").value;
+
+                // If x is Not a Number or less than one or greater than 10
+
+                if (isNaN(x) || x < 1 || x > 10) {
+                    text = "That Ain't Right";
+                } else {
+                    text = "'Aight";
+                }
+                document.getElementById("demo").innerHTML = text;
+            }
+                
+            //The parameters of the function below are the name of the 
+            //cookie (cname), the value of the cookie (cvalue), and 
+            //the number of days until the cookie should expire (exdays).
+            //The function sets a cookie by adding together the cookiename, 
+            //the cookie value, and the expires string.
+                
+            function setCookie(cname,cvalue,exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires=" + d.toGMTString();
+                document.cookie = cname+"="+cvalue+"; "+expires;
+            }
+            
+            //Take the cookiename as parameter (cname).
+            //Create a variable (name) with the text to search for (cname + "=").
+            //Split document.cookie on semicolons into an array called ca (ca = document.cookie.split(';')). 
+            //Loop through the ca array (i=0;i<ca.length;i++), and read out each value c=ca[i]).
+            //If the cookie is found (c.indexOf(name) == 0), 
+            //return the value of the cookie (c.substring(name.length,c.length).
+            //If the cookie is not found, return "".
+            
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0; i<ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1);
+                    if (c.indexOf(name) != -1) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+            
+            //If the cookie is set it will display a greeting.
+            //If the cookie is not set, it will display a prompt box, asking for 
+            //the name of the user, and stores the username cookie for 365 days, 
+            //by calling the setCookie function:
+            
+            function checkCookie() {
+                var user=getCookie("username");
+                if (user != "") {
+                    alert("Welcome again " + user);
+                } else {
+                    user = prompt("Please enter your name:","");
+                    if (user != "" && user != null) {
+                        setCookie("username", user, 30);
+                    }
+                }
+            }
+        </script>
 <!--        <div>11111111</div>-->
     </body>
 </html>
